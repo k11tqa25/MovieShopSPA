@@ -1,0 +1,81 @@
+
+<div class="container-fluid ">
+    <div class="row"  style="       
+        background-image: url( @Model.BackdropUrl );
+        background-color: rgb(9 28 51 / 0.85);
+        background-blend-mode: darken;
+        background-repeat: no-repeat;
+        background-position: top;
+        background-size: cover;
+        height: 35vh;
+    ">
+        <div class="col-5 h-100">
+            <img src="{{movie.posterUrl}}"  alt="{{movie.title}}" style="height: 100%; margin-right: 20%;" class="float-right"/>
+        </div>
+        <div class="col-4">
+            <h3 class="text-white">{{movie.title}}</h3>
+            <h6 class="text-muted" style="font-size: 10px;">{{movie.tagline}}</h6>
+            <div class="row">               
+                <h6 class="col-4 text-white-50" style="font-size: 10px;">{{movie.runTime}} m | {{movie.releaseDate | date:'y'}}</h6>
+                <div class="col-8 d-inline">
+                    <ng-container  *ngFor="let genre of movie.genres">
+                        <span class="badge badge-pill badge-secondary mx-1" style="font-size: 10px;">
+                            {{genre.name}}
+                        </span>   
+                    </ng-container>                    
+                </div>
+            </div>
+            <div class="badge badge-pill badge-danger" *ngIf="movie.rating < 6; else elseBlock">
+                {{movie.rating}}
+            </div>
+            <ng-template #elseBlock>
+                <span class="badge badge-pill badge-warning" style="font-size: 10px;">
+                    {{movie.rating}}
+                </span>
+            </ng-template>   
+            <p class="text-white mt-2" style="font-size: 10px;">{{movie.overview}}</p>
+        </div>
+        <div class="col-3">
+            <div class="container w-75 d-flex justify-content-start align-items-end flex-column mt-5 p-0  float-right">
+                <button type="button" class="btn btn-outline-light mb-3 w-100" style="font-size: 9px"><i class="fa fa-pencil-square-o"></i> REVIEW</button>
+                <button type="button" class="btn btn-outline-light mb-3 w-100"  style="font-size: 9px"><i class="fa fa-play"></i> TRAILER</button>
+                <a class="btn btn-light mb-1 w-100"  style="font-size: 9px" >BUY ${{movie.price}}</a>
+                <button type="button" class="btn btn-light mb-1 w-100"  style="font-size: 9px">WATCH MORE</button>
+            </div>
+        </div>
+
+    </div>
+    <div class="row mt-2">
+        <div class="col-4 h-auto">
+            <div class="container-fluid bg-light h-100">
+                <h6 class="p-2 border-bottom border-secondary">MOVIE FACTS</h6>
+                <ul class="list-group-flush border-0 p-0" style="font-size: 12px;">
+                    <li class="list-group-item border-0"><i class="fa fa-calendar" aria-hidden="true"></i> Release Data  <span class="badge badge-pill badge-secondary"> {{movie.releaseDate | date:"MM/dd/y"}}</span></li>
+                    <li class="list-group-item border-dark"><i class="fa fa-hourglass-half" aria-hidden="true"></i> Run Time <span class="badge badge-pill badge-secondary"> {{movie.runTime}} m</span></li>
+                    <li class="list-group-item border-dark"><i class="fa fa-money" aria-hidden="true"></i> Box Office  <span class="badge badge-pill badge-secondary"> $ {{movie.revenue}}</span></li>
+                    <li class="list-group-item border-dark"><i class="fa fa-dollar" aria-hidden="true"></i> Budget  <span class="badge badge-pill badge-secondary"> $ {{movie.budget}}</span></li>
+                    <li class="list-group-item border-dark"><i class="fa fa-minus-square mr-2" aria-hidden="true"></i><i class="fa fa-external-link" aria-hidden="true"></i></li>
+                </ul>
+            </div>
+
+        </div>
+        <div class="col-8 h-auto">
+            <div class="container-fluid">
+                <h6>CAST</h6>
+                <ul class="list-group-flush border-0 p-2" style="font-size: 12px;">
+                    <ng-container *ngFor="let cast of movie.casts">
+                        <ng-container class="container-fluid" >                            
+                            <a class="row p-1 text-dark" style="text-decoration: none;">
+                                <img src="{{cast.profilePath}}" alt="{{cast.name}}" class="img-fluid rounded-circle col-1" style="width: 100%;" />
+                                <p class="col-5">{{cast.name}}</p>
+                                <p class="col-6">{{cast.character}}</p>
+                            </a>
+                        </ng-container>
+                        
+                    </ng-container>                    
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</div>
